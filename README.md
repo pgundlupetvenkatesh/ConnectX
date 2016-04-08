@@ -1,11 +1,19 @@
-Bug ID:		01
-Assignment Name:Quiz3 - ConnectX
-Platform/OS:	Linux/Ubuntu 15.4 x64
-Severity:	Normal
-Summary:	TestFailure at 'atPlacePieceOutBounds' testcase
-Description:	The atPlacePieceOutBounds test-case places a Piece at an invalid location and the tries to verify it from an invalid location
-Actual Result:	BLACK - 2
-Expected Result:INVALID - -1
+Bug ID:
+	01
+Assignment Name:
+	Quiz3 - ConnectX
+Platform/OS:
+	Linux/Ubuntu 15.4 x64
+Severity:
+	Normal
+Summary:
+	TestFailure at 'atPlacePieceOutBounds' testcase
+Description:
+	The atPlacePieceOutBounds test-case places a Piece at an invalid location and the tries to verify it from an invalid location
+Actual Result:
+	BLACK - 2
+Expected Result:
+	INVALID - -1
 
 
 Bug ID:		02
