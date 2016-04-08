@@ -15,7 +15,155 @@ class ConnectXTest : public ::testing::Test
 		virtual void TearDown(){}
 };
 
-TEST(ConnectXTest, sanityCheck)
+TEST(ConnectXTest, atPlacePieceBLACK)	//Checking for Black player.
 {
-	ASSERT_TRUE(true);
+	ConnectX cx;
+	cx.placePiece(2);
+	ASSERT_EQ(2, cx.at(2, 5));
+}
+
+TEST(ConnectXTest, atPlacePieceEMPTY)	//Checking for EMPTY cell
+{
+	ConnectX cx;
+	cx.placePiece(2);
+	ASSERT_EQ(0, cx.at(2, 4));
+}
+
+TEST(ConnectXTest, atPlacePieceWHITE1)	//Checking for player White with first player placed at invalid location.
+{
+	ConnectX cx;
+	cx.placePiece(10);
+	cx.placePiece(3);
+	ASSERT_EQ(1, cx.at(3, 5));
+}
+
+TEST(ConnectXTest, atPlacePieceWHITE2)	//Checking for player White with first player placed at valid location.
+{
+	ConnectX cx;
+	cx.placePiece(3);
+	//ASSERT_EQ(2, cx.at(3, 5));
+	cx.placePiece(3);
+	ASSERT_EQ(1, cx.at(3, 4));
+}
+
+TEST(ConnectXTest, atPlacePieceOutBounds)	//Placing the piece in invalid location and asserting for INVALID.
+{
+	ConnectX cx;
+	cx.placePiece(8);
+	ASSERT_EQ(-1,cx.at(8, 5));	//BUG
+	//ASSERT_EQ(0,cx.at(4, 3));
+}
+
+TEST(ConnectXTest, atPlacePieceNegative)	//Checking by placing the piece in an invalid negative value. I am commenting the function call since it throws code dump exception and we cannot test further testcases.
+{
+	ConnectX cx;
+	//cx.placePiece(-1);	//BUG
+	ASSERT_EQ(0,cx.at(4, 3));
+}
+
+TEST(ConnectXTest, atWidthOutBounds)	//Checking for Width out of bound values
+{
+	ConnectX cx;
+	cx.placePiece(6);
+	ASSERT_EQ(-1,cx.at(9, 5));	//BUG
+}
+
+TEST(ConnectXTest, atWidthNegative)	//Checking for negative Width value.
+{
+	ConnectX cx;
+	cx.placePiece(4);
+	ASSERT_EQ(-1,cx.at(-1, 5));	//BUG
+}
+
+TEST(ConnectXTest, atHeightOutBounds)	//Checking for Height out of bound value.
+{
+	ConnectX cx;
+	cx.placePiece(6);
+	ASSERT_EQ(-1,cx.at(6, 7));
+}
+
+TEST(ConnectXTest, atHeightNegative)	//Checking for negative Height value.
+{
+	ConnectX cx;
+	cx.placePiece(5);
+	ASSERT_EQ(-1,cx.at(5, -2));
+}
+
+TEST(ConnectXTest, atBothNegative)	//Checking negative for both Width and Height value.
+{
+	ConnectX cx;
+	cx.placePiece(1);
+	ASSERT_EQ(-1,cx.at(-2, -1));
+}
+
+TEST(ConnectXTest, PlacePieceValidAtInvalidPositive)	//Checking for invalid positions where the piece is placed at valid location.
+{
+	ConnectX cx;
+	cx.placePiece(4);
+	ASSERT_EQ(-1,cx.at(8, 7));
+}
+
+TEST(ConnectXTest, showBoardWidthHeightWinOutbound)	//Modifying the board dimension and checking for the Piece validation.
+{
+	ConnectX cx(8, 8, 5);
+	cx.placePiece(7);
+	ASSERT_EQ(2,cx.at(7, 7));	//Checking for Black
+	cx.placePiece(0);
+	ASSERT_EQ(1,cx.at(0, 7));	//Checking for White
+}
+
+TEST(ConnectXTest, showBoardWidthNegative)	//Modified board dimension having a negative Width value and checking for Piece at valid location
+{
+	ConnectX cx(-1, 3, 2);
+	cx.placePiece(6);
+	ASSERT_EQ(2,cx.at(6, 5));
+}
+
+TEST(ConnectXTest, showBoardHeightZero)	//Modified board dimension having Zero Height and checking for Piece at valid location
+{
+	ConnectX cx(1, 0, 2);
+	cx.placePiece(6);
+	ASSERT_EQ(2,cx.at(6, 5));
+}
+
+TEST(ConnectXTest, showBoardWinZero)	//Modified board dimension having a Zero DefaultWins and checking for Piece at valid location
+{
+	ConnectX cx(1, 1, 0);
+	cx.placePiece(6);
+	ASSERT_EQ(2,cx.at(6, 5));
+}
+
+TEST(ConnectXTest, showBoardAllOutbound)	//Modified board dimension having all negative values except DefaultWins and checking for Piece at valid location
+{
+	ConnectX cx(-1, -1, 0);
+	cx.placePiece(6);
+	ASSERT_EQ(2,cx.at(6, 5));
+}
+
+TEST(ConnectXTest, showBoardBlackWhite)	//Checking for ToggleTurn function by placing a piece over an occupied location.
+{
+	ConnectX cx(2,2,1);
+	cx.placePiece(1);
+	ASSERT_EQ(2, cx.at(1, 1));	//Checking for Black
+	cx.placePiece(1);
+	ASSERT_EQ(1, cx.at(1, 0));	//Checking for White
+	cx.placePiece(0);
+	ASSERT_EQ(2, cx.at(0, 1));	//Checking for Black
+	cx.placePiece(1);
+	ASSERT_EQ(2, cx.at(1, 1));	//Placing White over Black piece location 
+	cx.placePiece(0);
+	ASSERT_EQ(2, cx.at(0, 0));	//Checking for Black
+}
+
+TEST(ConnectXTest, placePieceBadEntry)	//Checking for Bad piece placement
+{
+	ConnectX cx(2, 2, 1);
+	cx.placePiece(1);
+	ASSERT_EQ(2, cx.at(1, 1));	//Checking for Black
+	cx.placePiece(1);
+	ASSERT_EQ(1, cx.at(1, 0));	//Checking for White
+	cx.placePiece(3);
+	ASSERT_EQ(-1, cx.at(1, 2));	//Checking for invalid location
+	ASSERT_EQ(0, cx.at(0, 0));	//Checking for EMPTY
+	cx.showBoard();
 }
