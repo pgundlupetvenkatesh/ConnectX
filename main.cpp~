@@ -1,0 +1,7 @@
+#include "ConnectX.h"
+
+int main() {
+	ConnectX cx;
+	cx.showBoard();
+	return 0;
+}
