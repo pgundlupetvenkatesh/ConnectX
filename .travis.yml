@@ -5,4 +5,6 @@ branches:
   only:
   - Quiz3
 script:
+- make clean
 - make
+- ./ConnectXTest
