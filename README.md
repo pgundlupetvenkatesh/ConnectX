@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/pgundlupetvenkatesh/ConnectX.svg?branch=Quiz3)](https://travis-ci.org/pgundlupetvenkatesh/ConnectX)
+
 Name: Pratik Gundlupet Venkatesh
 
 Bug ID: 01
