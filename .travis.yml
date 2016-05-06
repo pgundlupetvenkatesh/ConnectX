@@ -1,0 +1,8 @@
+language: cpp
+compiler:
+- clang
+branches:
+  only:
+  - Quiz3
+script:
+- make
